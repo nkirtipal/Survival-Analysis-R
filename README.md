@@ -1,4 +1,4 @@
-## Survival Analysis in R: Kaplan–Meier and Cox Regression 
+# Survival Analysis in R: Kaplan–Meier and Cox Regression 
 
 R workflow for time-to-event analysis: Kaplan–Meier curves, Cox proportional hazards regression, assumption testing, and summary tables.
 
