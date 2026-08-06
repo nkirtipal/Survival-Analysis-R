@@ -2,8 +2,8 @@
 
 R workflow for time-to-event analysis: Kaplan–Meier curves, Cox proportional hazards regression, assumption testing, and summary tables.
 
-The example workflow uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`), so the repository can be run immediately without downloading external data.
-
+The example workflow uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`; Loprinzi et al. 1994, *J Clin Oncol* 12:601–607), so the
+repository can be run immediately without downloading external data.
 ![Kaplan–Meier Curve](output/km_curve.png)
 
 ---
@@ -58,7 +58,7 @@ Replace the preprocessing section with your own clinical dataset. The script exp
 
 Everything downstream can remain unchanged.
 
-Three practical points built into the template:
+Three practical points built into the script:
 
 - **Handle missing values up front.** `coxph()` drops rows with `NA` silently, so unadjusted and adjusted models would otherwise be fitted on different samples and would not be comparable.
 - **Aim for at least 10 events per model parameter.** This example has 150 events and 5 terms.
@@ -76,7 +76,7 @@ The proportional hazards assumption holds here (global p = 0.393). Had it been v
 
 ## Disclaimer
 
-This repository is intended as a reusable learning template for survival analysis in R.
+This repository is intended as a learning resource and starting point for survival analysis in R.
 
 The example uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`) only to demonstrate the analysis workflow. The example results should not be interpreted as new scientific findings or clinical recommendations.
 
