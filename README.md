@@ -29,6 +29,13 @@ install.packages(c("survival", "survminer", "gtsummary", "gt",
                    "dplyr", "tidyr", "labelled"))
 ```
 
+Tested with R 4.4.2 — survival 3.6-6, survminer 0.5.2, gtsummary 2.5.1, gt 1.3.0,
+dplyr 1.2.0, tidyr 1.3.2.
+
+Note: gtsummary 2.x is required. `modify_column_merge()` and `modify_header()`
+behave differently on 1.x and the script will error.
+```
+
 ---
 
 ## Using your own data
