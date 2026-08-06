@@ -4,7 +4,7 @@ R workflow for time-to-event analysis: Kaplan–Meier curves, Cox proportional h
 
 The example workflow uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`; Loprinzi et al. 1994, *J Clin Oncol* 12:601–607), so the
 repository can be run immediately without downloading external data.
-![Kaplan–Meier Curve](output/km_curve.png)
+![Kaplan–Meier Curve](km_curve.png)
 
 ---
 
