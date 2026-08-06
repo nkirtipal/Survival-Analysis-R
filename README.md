@@ -1,74 +1,86 @@
-# Survival Analysis in R
+# # Survival Analysis in R: Kaplan–Meier and Cox Regression 
 
-A reusable template for time-to-event analysis: Kaplan–Meier curves, Cox
-proportional hazards regression, assumption checking, and publication-ready tables.
+R workflow for time-to-event analysis: Kaplan–Meier curves, Cox proportional hazards regression, assumption testing, and summary tables.
 
-Runs on the built-in `survival::lung` dataset (NCCTG Lung Cancer, 228 patients),
-so no data download is needed.
+The example workflow uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`), so the repository can be run immediately without downloading external data.
 
-![Kaplan-Meier curve](output/km_curve.png)
+![Kaplan–Meier Curve](output/km_curve.png)
 
 ---
 
-## What it covers
+## Features
 
-- Kaplan–Meier estimation with risk table and log-rank test
-- Baseline characteristics table (`tbl_summary`)
+- Kaplan–Meier survival curves with confidence intervals and risk table
+- Log-rank test
+- Baseline characteristics table (`gtsummary::tbl_summary`)
 - Cox proportional hazards regression
-- **Proportional hazards assumption check** via Schoenfeld residuals (`cox.zph`) —
-  the step most tutorials skip, and the assumption the model depends on
-- Unadjusted and adjusted hazard ratios side by side
-- Export to Word via `gtsummary` + `gt`
+- Proportional hazards assumption testing using Schoenfeld residuals (`cox.zph`)
+- Unadjusted and adjusted hazard ratio tables, side by side
+- Tables exported to Word with **gtsummary** and **gt**
 
 ---
 
 ## Requirements
 
 ```r
-install.packages(c("survival", "survminer", "gtsummary", "gt",
-                   "dplyr", "tidyr", "labelled"))
+install.packages(c(
+  "survival",
+  "survminer",
+  "gtsummary",
+  "gt",
+  "dplyr",
+  "tidyr",
+  "labelled"
+))
 ```
 
-Tested with R 4.4.2 — survival 3.6-6, survminer 0.5.2, gtsummary 2.5.1, gt 1.3.0,
-dplyr 1.2.0, tidyr 1.3.2.
+Tested with:
 
-gtsummary 2.x is required. `modify_column_merge()` and `modify_header()` behave
-differently on 1.x and the script will error.
+- R 4.4.2
+- survival 3.6-6
+- survminer 0.5.2
+- gtsummary 2.5.1
+- gt 1.3.0
+- dplyr 1.2.0
+- tidyr 1.3.2
+
+> **Note:** `gtsummary` 2.x is required. Some functions, such as `modify_column_merge()` and `modify_header()`, behave differently in older releases.
 
 ---
 
 ## Using your own data
 
-Replace the preprocessing block. The script needs a time column, an event indicator
-coded 0 = censored / 1 = event, and your covariates. Everything downstream follows.
+Replace the preprocessing section with your own clinical dataset. The script expects:
 
-Two choices worth keeping if you adapt it:
+- a follow-up time variable
+- an event indicator (`0 = censored`, `1 = event`)
+- one or more clinical covariates
 
-- **Complete cases handled up front.** `coxph` drops `NA` rows silently, so otherwise
-  the unadjusted and adjusted models get fitted on different samples and aren't
-  comparable.
-- **Events per variable.** Aim for at least 10 events per covariate. This example has
-  150 events and 5 model terms.
+Everything downstream can remain unchanged.
+
+Three practical points built into the template:
+
+- **Handle missing values up front.** `coxph()` drops rows with `NA` silently, so unadjusted and adjusted models would otherwise be fitted on different samples and would not be comparable.
+- **Aim for at least 10 events per model parameter.** This example has 150 events and 5 terms.
+- **Check the proportional hazards assumption** before interpreting hazard ratios. It is the assumption the entire model rests on, and it is routinely skipped.
 
 ---
 
 ## Example output
 
-In the lung data, age is significant unadjusted (HR 1.02, p = 0.027) but not after
-adjustment (p = 0.177) — a clean case of confounding, and the reason the side-by-side
-table is worth producing.
+In the lung data, age is significant unadjusted (HR 1.02, p = 0.027) but not after adjustment (p = 0.177) — a clean case of confounding, and the reason the side-by-side table is worth producing.
 
-The PH assumption holds here (global p = 0.393). If it hadn't, the options are
-stratifying on the offending variable, adding a time-varying coefficient, or moving
-to an accelerated failure time model.
+The proportional hazards assumption holds here (global p = 0.393). Had it been violated, the options would be stratifying on the offending variable, adding a time-varying coefficient, or moving to an accelerated failure time model.
 
 ---
 
-## Note
+## Disclaimer
 
-A learning template, not a research finding. The `lung` results are shown only to
-demonstrate the workflow — check your own assumptions and pick covariates from your
-study design rather than copying these.
+This repository is intended as a reusable learning template for survival analysis in R.
+
+The example uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`) only to demonstrate the analysis workflow. The example results should not be interpreted as new scientific findings or clinical recommendations.
+
+Before applying this workflow to your own research, verify data quality, assess model assumptions, and choose variables based on your study design.
 
 ---
 
