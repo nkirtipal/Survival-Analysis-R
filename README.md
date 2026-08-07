@@ -4,6 +4,7 @@ R workflow for time-to-event analysis: Kaplan–Meier curves, Cox proportional h
 
 The example workflow uses the built-in **NCCTG Lung Cancer** dataset (`survival::lung`; Loprinzi et al. 1994, *J Clin Oncol* 12:601–607), so the
 repository can be run immediately without downloading external data.
+
 ![Kaplan–Meier Curve](output/km_curve.png)
 
 ---
@@ -71,6 +72,8 @@ Three practical points built into the script:
 In the lung data, age is significant unadjusted (HR 1.02, p = 0.027) but not after adjustment (p = 0.177) — a clean case of confounding, and the reason the side-by-side table is worth producing.
 
 The proportional hazards assumption holds here (global p = 0.393). Had it been violated, the options would be stratifying on the offending variable, adding a time-varying coefficient, or moving to an accelerated failure time model.
+
+![PH diagnostics](output/ph_diagnostics.png)
 
 ---
 
